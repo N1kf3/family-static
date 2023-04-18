@@ -49,7 +49,7 @@ class FamilyStructure:
         members= self._members
         for pos, member in enumerate(members):
             if member["id"]== id:
-                delete_member = member.pop(pos)
+                delete_member = members.pop(pos)
                 return delete_member
         return "not found"
 

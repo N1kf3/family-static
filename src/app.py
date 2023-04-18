@@ -33,26 +33,27 @@ def handle_members():
     return jsonify(members), 200
 
 @app.route('/member', methods=['POST'])
-def handle_new_member():
+def handle_post_member():
     new_member = request.json 
     if new_member:
-        add_member = jackson_family.add_member(new_member)
-    return jsonify(add_member),200
+        post_member = jackson_family.add_member(new_member)
+    return jsonify(post_member), 200
 
 
 
-@app.route('/member/<int:id>', methods=['GET','DELETE'])
-def handle_member_by_id(id):
+@app.route('/member/<int:member_id>', methods=['GET','DELETE'])
+def handle_member_id(member_id):
     if request.method == 'GET':
-        get_member = jackson_family.get_member(id)
-        if get_member[0] == "not found":
+        request_member = jackson_family.get_member(member_id),
+        if request_member[0] == "not found":
             return jsonify({'error':'Not found'}), 404
-        return jsonify(get_member[0]), 200
+        return jsonify(request_member[0]), 200
+
     if request.method == 'DELETE':
-        del_member = jackson_family.delete_member(id)
-        if del_member[0] == "not found":
+        delete_member = jackson_family.delete_member(member_id),
+        if delete_member[0] == "not found":
             return jsonify({'error':'Not found'}), 404
-        return jsonify({"member deleted":'yes'}), 200
+        return jsonify({"done":True}), 200
 
 
 # this only runs if `$ python src/app.py` is executed
